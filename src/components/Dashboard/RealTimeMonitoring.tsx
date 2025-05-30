@@ -593,7 +593,7 @@ const RealTimeMonitoring = () => {
                         padding: isMobile ? 12 : 8,
                         titleFont: {
                           size: isMobile ? 14 : 12,
-                          weight: '600',
+                          weight: 600 as const,
                         },
                         bodyFont: {
                           size: isMobile ? 13 : 11,
@@ -606,7 +606,7 @@ const RealTimeMonitoring = () => {
                         beginAtZero: true,
                         grid: {
                           color: alpha(theme.palette.divider, 0.1),
-                          drawBorder: false,
+                          borderColor: 'transparent',
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
@@ -619,7 +619,7 @@ const RealTimeMonitoring = () => {
                       x: {
                         grid: {
                           display: false,
-                          drawBorder: false,
+                          borderColor: 'transparent',
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
