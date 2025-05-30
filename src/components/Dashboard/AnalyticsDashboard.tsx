@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import {
   Typography,
   Box,
@@ -37,6 +37,11 @@ interface ConsumptionData {
   savings: number;
 }
 
+interface ChartData {
+  date: string;
+  value: number;
+}
+
 // Mock data generator
 const generateConsumptionData = (count: number): ConsumptionData[] => {
   return Array.from({ length: count }, () => ({
@@ -48,41 +53,62 @@ const generateConsumptionData = (count: number): ConsumptionData[] => {
 const AnalyticsDashboard = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [timeRange, setTimeRange] = useState('week');
-  const [consumptionData] = useState({
-    daily: generateConsumptionData(7),
-    weekly: generateConsumptionData(4),
-    monthly: generateConsumptionData(12),
-  });
+  const [selectedTimeRange, setSelectedTimeRange] = useState('week');
 
-  const handleTimeRangeChange = (
-    event: React.MouseEvent<HTMLElement>,
-    newTimeRange: string
-  ) => {
+  const handleTimeRangeChange = (_: React.MouseEvent<HTMLElement>, newTimeRange: string) => {
     if (newTimeRange !== null) {
-      setTimeRange(newTimeRange);
+      setSelectedTimeRange(newTimeRange);
     }
   };
+
+  const generateMockData = (days: number): ChartData[] => {
+    const data: ChartData[] = [];
+    const now = new Date();
+    
+    for (let i = days - 1; i >= 0; i--) {
+      const date = new Date(now);
+      date.setDate(date.getDate() - i);
+      data.push({
+        date: date.toLocaleDateString(),
+        value: Math.floor(Math.random() * 100) + 50,
+      });
+    }
+    
+    return data;
+  };
+
+  const data = useMemo(() => {
+    switch (selectedTimeRange) {
+      case 'week':
+        return generateMockData(7);
+      case 'month':
+        return generateMockData(30);
+      case 'year':
+        return generateMockData(365);
+      default:
+        return generateMockData(7);
+    }
+  }, [selectedTimeRange]);
 
   const getChartData = () => {
     let labels: string[] = [];
     let data = [];
 
-    switch (timeRange) {
+    switch (selectedTimeRange) {
       case 'week':
         labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        data = consumptionData.daily;
+        data = generateConsumptionData(7);
         break;
       case 'month':
         labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-        data = consumptionData.weekly;
+        data = generateConsumptionData(4);
         break;
       case 'year':
         labels = [
           'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
         ];
-        data = consumptionData.monthly;
+        data = generateConsumptionData(12);
         break;
     }
 
@@ -105,8 +131,8 @@ const AnalyticsDashboard = () => {
     };
   };
 
-  const totalUsage = consumptionData.daily.reduce((acc, curr) => acc + curr.usage, 0);
-  const totalSavings = consumptionData.daily.reduce((acc, curr) => acc + curr.savings, 0);
+  const totalUsage = generateConsumptionData(7).reduce((acc, curr) => acc + curr.usage, 0);
+  const totalSavings = generateConsumptionData(7).reduce((acc, curr) => acc + curr.savings, 0);
   const efficiency = ((totalSavings / (totalUsage + totalSavings)) * 100).toFixed(1);
 
   return (
@@ -204,7 +230,7 @@ const AnalyticsDashboard = () => {
         <Grid item xs={12}>
           <Box sx={{ display: 'flex', justifyContent: isMobile ? 'stretch' : 'flex-start', mb: 2 }}>
             <ToggleButtonGroup
-              value={timeRange}
+              value={selectedTimeRange}
               exclusive
               onChange={handleTimeRangeChange}
               aria-label="time range"

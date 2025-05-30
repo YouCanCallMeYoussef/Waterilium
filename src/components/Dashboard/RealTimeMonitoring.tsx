@@ -209,7 +209,17 @@ const RealTimeMonitoring = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [liveData, setLiveData] = useState(generateMockData());
-  const [chartData, setChartData] = useState({
+  const [chartData, setChartData] = useState<{
+    labels: string[];
+    datasets: {
+      label: string;
+      data: number[];
+      borderColor: string;
+      backgroundColor: string;
+      fill: boolean;
+      tension: number;
+    }[];
+  }>({
     labels: [],
     datasets: [
       {
@@ -606,7 +616,7 @@ const RealTimeMonitoring = () => {
                         beginAtZero: true,
                         grid: {
                           color: alpha(theme.palette.divider, 0.1),
-                          border: { display: false }
+                          drawBorder: false,
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
@@ -619,7 +629,7 @@ const RealTimeMonitoring = () => {
                       x: {
                         grid: {
                           display: false,
-                          border: { display: false }
+                          drawBorder: false,
                         },
                         ticks: {
                           color: theme.palette.text.secondary,

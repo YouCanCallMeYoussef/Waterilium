@@ -1,32 +1,21 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
-  Typography,
   Box,
-  Grid,
+  Typography,
   Card,
   CardContent,
   Switch,
-  IconButton,
-  Chip,
-  LinearProgress,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Alert,
+  Grid,
   useTheme,
   useMediaQuery,
+  IconButton,
+  Chip,
   Stack,
-  Divider,
 } from '@mui/material';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AddIcon from '@mui/icons-material/Add';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import WaterIcon from '@mui/icons-material/Water';
+import BuildIcon from '@mui/icons-material/Build';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 interface Device {
   id: string;
