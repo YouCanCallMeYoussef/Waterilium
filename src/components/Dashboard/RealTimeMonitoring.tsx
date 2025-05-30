@@ -616,7 +616,9 @@ const RealTimeMonitoring = () => {
                         beginAtZero: true,
                         grid: {
                           color: alpha(theme.palette.divider, 0.1),
-                          drawBorder: false,
+                          display: true,
+                          borderDash: [],
+                          borderWidth: 1,
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
@@ -629,15 +631,16 @@ const RealTimeMonitoring = () => {
                       x: {
                         grid: {
                           display: false,
-                          drawBorder: false,
+                          borderDash: [],
+                          borderWidth: 1,
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
                           font: {
                             size: isMobile ? 12 : 10,
                           },
-                          maxRotation: 45,
-                          minRotation: 45,
+                          maxRotation: isMobile ? 45 : 0,
+                          minRotation: isMobile ? 45 : 0,
                           padding: 8,
                         },
                       },

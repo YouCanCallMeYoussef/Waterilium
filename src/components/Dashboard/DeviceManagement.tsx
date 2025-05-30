@@ -11,11 +11,22 @@ import {
   IconButton,
   Chip,
   Stack,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Alert,
+  LinearProgress,
+  Divider,
 } from '@mui/material';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import WaterIcon from '@mui/icons-material/Water';
 import BuildIcon from '@mui/icons-material/Build';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import AddIcon from '@mui/icons-material/Add';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 interface Device {
   id: string;
@@ -147,6 +158,14 @@ const DeviceManagement = () => {
     // Add device to list
     setDevices(prev => [...prev, device]);
     handleCloseAddDevice();
+  };
+
+  const handleDeviceNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewDevice({ ...newDevice, name: e.target.value });
+  };
+
+  const handleDeviceLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNewDevice({ ...newDevice, location: e.target.value });
   };
 
   return (
@@ -362,7 +381,7 @@ const DeviceManagement = () => {
               fullWidth
               label="Device Name"
               value={newDevice.name}
-              onChange={(e) => setNewDevice({ ...newDevice, name: e.target.value })}
+              onChange={handleDeviceNameChange}
               variant="outlined"
               size={isMobile ? "medium" : "small"}
               required
@@ -371,7 +390,7 @@ const DeviceManagement = () => {
               fullWidth
               label="Location"
               value={newDevice.location}
-              onChange={(e) => setNewDevice({ ...newDevice, location: e.target.value })}
+              onChange={handleDeviceLocationChange}
               variant="outlined"
               size={isMobile ? "medium" : "small"}
               required

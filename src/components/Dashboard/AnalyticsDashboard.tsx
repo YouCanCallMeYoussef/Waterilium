@@ -92,23 +92,23 @@ const AnalyticsDashboard = () => {
 
   const getChartData = () => {
     let labels: string[] = [];
-    let data = [];
+    let consumptionData: ConsumptionData[] = [];
 
     switch (selectedTimeRange) {
       case 'week':
         labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-        data = generateConsumptionData(7);
+        consumptionData = generateConsumptionData(7);
         break;
       case 'month':
         labels = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
-        data = generateConsumptionData(4);
+        consumptionData = generateConsumptionData(4);
         break;
       case 'year':
         labels = [
           'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
         ];
-        data = generateConsumptionData(12);
+        consumptionData = generateConsumptionData(12);
         break;
     }
 
@@ -117,13 +117,13 @@ const AnalyticsDashboard = () => {
       datasets: [
         {
           label: 'Water Usage (L)',
-          data: data.map(d => d.usage),
+          data: consumptionData.map(d => d.usage),
           backgroundColor: alpha(theme.palette.primary.main, 0.7),
           borderRadius: 4,
         },
         {
           label: 'Water Savings (L)',
-          data: data.map(d => d.savings),
+          data: consumptionData.map(d => d.savings),
           backgroundColor: alpha(theme.palette.success.main, 0.7),
           borderRadius: 4,
         },
