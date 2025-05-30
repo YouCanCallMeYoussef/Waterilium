@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import {
   Typography,
   Box,
@@ -59,22 +59,6 @@ const AnalyticsDashboard = () => {
     if (newTimeRange !== null) {
       setSelectedTimeRange(newTimeRange);
     }
-  };
-
-  const generateMockData = (days: number): ChartData[] => {
-    const mockData: ChartData[] = [];
-    const now = new Date();
-    
-    for (let i = days - 1; i >= 0; i--) {
-      const date = new Date(now);
-      date.setDate(date.getDate() - i);
-      mockData.push({
-        date: date.toLocaleDateString(),
-        value: Math.floor(Math.random() * 100) + 50,
-      });
-    }
-    
-    return mockData;
   };
 
   const getChartData = () => {

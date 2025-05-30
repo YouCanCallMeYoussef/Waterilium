@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import {
   Typography,
   Box,
@@ -9,6 +10,8 @@ import {
   useMediaQuery,
   Stack,
   Paper,
+  CircularProgress,
+  Divider,
 } from '@mui/material';
 import OpacityIcon from '@mui/icons-material/Opacity';
 import CompressIcon from '@mui/icons-material/Compress';
@@ -26,6 +29,9 @@ import {
   Tooltip as ChartTooltip,
   Legend,
   Filler,
+  ChartData,
+  ScaleOptions,
+  GridLineOptions,
 } from 'chart.js';
 
 // Register ChartJS components
@@ -200,17 +206,7 @@ const RealTimeMonitoring = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [liveData, setLiveData] = useState(generateMockData());
-  const [chartData, setChartData] = useState<{
-    labels: string[];
-    datasets: {
-      label: string;
-      data: number[];
-      borderColor: string;
-      backgroundColor: string;
-      fill: boolean;
-      tension: number;
-    }[];
-  }>({
+  const [chartData, setChartData] = useState<ChartData<'line'>>({
     labels: [],
     datasets: [
       {
@@ -229,7 +225,7 @@ const RealTimeMonitoring = () => {
       const newData = generateMockData();
       setLiveData(newData);
       
-      setChartData((prevData) => {
+      setChartData((prevData: ChartData<'line'>) => {
         const newLabels = [...prevData.labels, new Date().toLocaleTimeString()].slice(-10);
         const newDataPoints = [...prevData.datasets[0].data, parseFloat(newData.flowRate)].slice(-10);
         
@@ -608,7 +604,6 @@ const RealTimeMonitoring = () => {
                         grid: {
                           color: alpha(theme.palette.divider, 0.1),
                           display: true,
-                          borderWidth: 1,
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
@@ -617,11 +612,10 @@ const RealTimeMonitoring = () => {
                           },
                           padding: 8,
                         },
-                      },
+                      } as ScaleOptions<'linear'>,
                       x: {
                         grid: {
                           display: false,
-                          borderWidth: 1,
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
@@ -632,7 +626,7 @@ const RealTimeMonitoring = () => {
                           minRotation: isMobile ? 45 : 0,
                           padding: 8,
                         },
-                      },
+                      } as ScaleOptions<'linear'>,
                     },
                   }}
                 />
