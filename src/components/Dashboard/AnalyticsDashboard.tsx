@@ -62,33 +62,20 @@ const AnalyticsDashboard = () => {
   };
 
   const generateMockData = (days: number): ChartData[] => {
-    const data: ChartData[] = [];
+    const mockData: ChartData[] = [];
     const now = new Date();
     
     for (let i = days - 1; i >= 0; i--) {
       const date = new Date(now);
       date.setDate(date.getDate() - i);
-      data.push({
+      mockData.push({
         date: date.toLocaleDateString(),
         value: Math.floor(Math.random() * 100) + 50,
       });
     }
     
-    return data;
+    return mockData;
   };
-
-  const data = useMemo(() => {
-    switch (selectedTimeRange) {
-      case 'week':
-        return generateMockData(7);
-      case 'month':
-        return generateMockData(30);
-      case 'year':
-        return generateMockData(365);
-      default:
-        return generateMockData(7);
-    }
-  }, [selectedTimeRange]);
 
   const getChartData = () => {
     let labels: string[] = [];

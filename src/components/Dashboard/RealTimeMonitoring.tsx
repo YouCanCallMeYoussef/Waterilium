@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import {
   Typography,
   Box,
@@ -7,16 +6,15 @@ import {
   CardContent,
   useTheme,
   alpha,
-  CircularProgress,
-  Tooltip,
   useMediaQuery,
   Stack,
-  Divider,
   Paper,
-  Zoom,
-  IconButton,
-  Popover,
 } from '@mui/material';
+import OpacityIcon from '@mui/icons-material/Opacity';
+import CompressIcon from '@mui/icons-material/Compress';
+import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
+import WaterDropIcon from '@mui/icons-material/WaterDrop';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -29,13 +27,6 @@ import {
   Legend,
   Filler,
 } from 'chart.js';
-import OpacityIcon from '@mui/icons-material/Opacity';
-import CompressIcon from '@mui/icons-material/Compress';
-import DeviceThermostatIcon from '@mui/icons-material/DeviceThermostat';
-import WaterDropIcon from '@mui/icons-material/WaterDrop';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import SmartToyIcon from '@mui/icons-material/SmartToy';
-import CloseIcon from '@mui/icons-material/Close';
 
 // Register ChartJS components
 ChartJS.register(
@@ -617,7 +608,6 @@ const RealTimeMonitoring = () => {
                         grid: {
                           color: alpha(theme.palette.divider, 0.1),
                           display: true,
-                          borderDash: [],
                           borderWidth: 1,
                         },
                         ticks: {
@@ -631,7 +621,6 @@ const RealTimeMonitoring = () => {
                       x: {
                         grid: {
                           display: false,
-                          borderDash: [],
                           borderWidth: 1,
                         },
                         ticks: {

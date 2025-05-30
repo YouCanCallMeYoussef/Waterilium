@@ -21,10 +21,6 @@ import {
   LinearProgress,
   Divider,
 } from '@mui/material';
-import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
-import WaterIcon from '@mui/icons-material/Water';
-import BuildIcon from '@mui/icons-material/Build';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AddIcon from '@mui/icons-material/Add';
 import SettingsIcon from '@mui/icons-material/Settings';
 
