@@ -31,7 +31,6 @@ import {
   Filler,
   ChartData,
   ScaleOptions,
-  GridLineOptions,
 } from 'chart.js';
 
 // Register ChartJS components
@@ -226,11 +225,16 @@ const RealTimeMonitoring = () => {
       setLiveData(newData);
       
       setChartData((prevData: ChartData<'line'>) => {
-        const newLabels = [...prevData.labels, new Date().toLocaleTimeString()].slice(-10);
-        const newDataPoints = [...prevData.datasets[0].data, parseFloat(newData.flowRate)].slice(-10);
+        const newLabels = prevData.labels ? [...prevData.labels] : [];
+        newLabels.push(new Date().toLocaleTimeString());
+        const labels = newLabels.slice(-10);
+
+        const currentData = prevData.datasets[0].data ? [...prevData.datasets[0].data] : [];
+        currentData.push(parseFloat(newData.flowRate));
+        const newDataPoints = currentData.slice(-10);
         
         return {
-          labels: newLabels,
+          labels,
           datasets: [
             {
               ...prevData.datasets[0],

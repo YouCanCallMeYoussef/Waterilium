@@ -37,11 +37,6 @@ interface ConsumptionData {
   savings: number;
 }
 
-interface ChartData {
-  date: string;
-  value: number;
-}
-
 // Mock data generator
 const generateConsumptionData = (count: number): ConsumptionData[] => {
   return Array.from({ length: count }, () => ({
