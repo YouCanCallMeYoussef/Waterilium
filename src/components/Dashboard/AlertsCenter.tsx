@@ -128,24 +128,24 @@ const AlertsCenter = () => {
 
   const getSeverityIcon = (severity: AlertSeverity, type: AlertType) => {
     const iconProps = { 
-      fontSize: isMobile ? "medium" : "small",
+      fontSize: isMobile ? "medium" : "small" as const,
       sx: { 
         color: theme.palette[getSeverityColor(severity)].main,
       }
     };
 
     if (type === 'leak') {
-      return <WaterDamageIcon {...iconProps} />;
+      return <WaterDamageIcon fontSize={iconProps.fontSize} sx={iconProps.sx} />;
     }
 
     switch (severity) {
       case 'critical':
       case 'high':
-        return <ErrorIcon {...iconProps} />;
+        return <ErrorIcon fontSize={iconProps.fontSize} sx={iconProps.sx} />;
       case 'medium':
-        return <WarningIcon {...iconProps} />;
+        return <WarningIcon fontSize={iconProps.fontSize} sx={iconProps.sx} />;
       case 'low':
-        return <InfoIcon {...iconProps} />;
+        return <InfoIcon fontSize={iconProps.fontSize} sx={iconProps.sx} />;
     }
   };
 

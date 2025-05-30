@@ -606,7 +606,7 @@ const RealTimeMonitoring = () => {
                         beginAtZero: true,
                         grid: {
                           color: alpha(theme.palette.divider, 0.1),
-                          borderColor: 'transparent',
+                          border: { display: false }
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
@@ -619,7 +619,7 @@ const RealTimeMonitoring = () => {
                       x: {
                         grid: {
                           display: false,
-                          borderColor: 'transparent',
+                          border: { display: false }
                         },
                         ticks: {
                           color: theme.palette.text.secondary,
